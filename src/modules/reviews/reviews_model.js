@@ -2,14 +2,27 @@ const { Schema , model , Types} = require("mongoose");
 
 const schema=Schema({
     name :{
-        type:String,
+        type:Types.ObjectId,
+        ref:"user",
         required:[true,"this required"]
     },
-    slug:{
-        type:String,
-        lowercase:true
+    product: {
+        type:Types.ObjectId,
+        ref:"product",
+        required:[true,"this required"]
     },
-    image:String
+    ratingAverage:{
+        type:Number,
+        min:1,
+        max:5
+    },
+    message:{
+        type:String,
+        
+    },
+   
+},{
+    timestamps:true
 })
 
-module.exports=model("category",schema)
+module.exports=model("reviews",schema)

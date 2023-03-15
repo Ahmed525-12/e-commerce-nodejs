@@ -13,6 +13,9 @@ const schema=Schema({
         type:Types.ObjectId,
         ref:"category"
     }
-})
+},{
+    timestamps:true
+}
+)
 
 module.exports=model("subcategory",schema)

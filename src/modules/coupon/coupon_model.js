@@ -1,15 +1,19 @@
 const { Schema , model , Types} = require("mongoose");
 
 const schema=Schema({
-    name :{
+    code :{
         type:String,
-        required:[true,"this required"]
+        required:[true,"this required"],
+        unique:true
     },
-    slug:{
-        type:String,
-        lowercase:true
-    },
-    image:String
+  expires:{
+    type:Date,
+  },
+  discount:{
+    type:Number,
+  }
+},{
+    timestamps:true
 })
 
-module.exports=model("category",schema)
+module.exports=model("coupon",schema)

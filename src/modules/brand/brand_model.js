@@ -10,6 +10,9 @@ const schema=Schema({
         lowercase:true
     },
     image:String
+},
+{
+    timestamps:true
 })
 
-module.exports=model("category",schema)
+module.exports=model("brand",schema)

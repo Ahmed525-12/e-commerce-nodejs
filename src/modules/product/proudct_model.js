@@ -52,8 +52,21 @@ const schema=Schema({
     brand:{
         type:Types.ObjectId,
         ref:"brand"
+    },
+    ratingAverage:{
+        type:Number,
+        min:1,
+        max:5
+    },
+    ratingCount:{
+        type:Number,
+        default:0
+    
     }
-})
-//6:35
+},{
+    timestamps:true
+}
+)
+
 
 module.exports=model("product",schema)

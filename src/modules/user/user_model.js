@@ -5,11 +5,35 @@ const schema=Schema({
         type:String,
         required:[true,"this required"]
     },
-    slug:{
+ phone:{
+type:String,
+required:true,
+
+ },
+    imageProfile:String,
+
+    email:{
         type:String,
-        lowercase:true
+        required:true,
+        unique:true,
     },
-    image:String
+    password:{
+        type:String,
+        required:true,
+       minlength:[6]
+    },
+    role:{
+        type:String,
+        enum:["admin","user"]
+    },
+    isActive:{
+        type:Boolean,
+        default:true,
+    }
+
+},
+{
+    timestamps:true
 })
 
-module.exports=model("category",schema)
+module.exports=model("user",schema)
