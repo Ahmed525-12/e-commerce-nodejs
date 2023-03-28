@@ -20,6 +20,9 @@ const golbalErrmiddlewares = require('./src/utils/globalErrMiddleWear')
 app.use(express.json())
 
 app.use("/category", require("./src/modules/category/category_api"))
+app.use("/subcategory", require("./src/modules/subcategory/subcategory_api"))
+app.use("/brand", require("./src/modules/brand/brand_api"))
+app.use("/product", require("./src/modules/product/proudct_api"))
 // end of imports
 
 

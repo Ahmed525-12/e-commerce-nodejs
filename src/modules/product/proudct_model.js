@@ -43,14 +43,20 @@ const schema=Schema({
     images:[String],
     category:{
         type:Types.ObjectId,
+                required:[true,"this required"],
+
         ref:"category"
     },
     subcategory:{
         type:Types.ObjectId,
+        required:[true,"this required"],
+
         ref:"subcategory"
     },
     brand:{
         type:Types.ObjectId,
+        required:[true,"this required"],
+
         ref:"brand"
     },
     ratingAverage:{
