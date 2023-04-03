@@ -36,14 +36,18 @@ exports.createDocument=(model)=>{
 exports.getDocuments=(model)=>{
 
     return catchAsyncError(async(req,res,next)=>{
+let page = req.query.page*1 ||1
+if (page <0) page=1
+const limit=5
+const skip=(page-1)*limit
 
-        const document=await  model.find({});
+        const document=await  model.find({}).skip(skip).limit(limit);
       
         if (!document) {
            return next (new AppError('No document found',404))
           } else {
             
-            return  res.status(201).json(document)
+            return  res.status(201).json({page,document})
           }
       })
 }
