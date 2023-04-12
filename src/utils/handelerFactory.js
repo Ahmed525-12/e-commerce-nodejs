@@ -38,10 +38,14 @@ exports.getDocuments=(model)=>{
     return catchAsyncError(async(req,res,next)=>{
 let page = req.query.page*1 ||1
 if (page <0) page=1
-const limit=5
+const limit=8
 const skip=(page-1)*limit
 
-        const document=await  model.find({}).skip(skip).limit(limit);
+
+const queryString={...req.query}
+delete queryString["page"]//to delete query from the req, query to save performance
+
+        const document=await  model.find(queryString).skip(skip).limit(limit);
       
         if (!document) {
            return next (new AppError('No document found',404))
