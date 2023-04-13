@@ -1,6 +1,7 @@
 const slugify = require('slugify');
 const catchAsyncError= require('express-async-handler');
 const AppError = require('./appErrors');
+const GetDocuments = require('./apiFeatuers');
 
 exports.deleteDocument=(model)=>{
     return catchAsyncError(async(req,res,next)=>{
@@ -33,28 +34,25 @@ exports.createDocument=(model)=>{
 }
 
 
+
 exports.getDocuments=(model)=>{
 
     return catchAsyncError(async(req,res,next)=>{
-let page = req.query.page*1 ||1
-if (page <0) page=1
-const limit=8
-const skip=(page-1)*limit
+     let apiFeature=new GetDocuments(model.find(),req.query).paginate().sort().filter().search().selectFields()
+ 
+      const document=await  apiFeature.mongooseQuery
 
-
-const queryString={...req.query}
-delete queryString["page"]//to delete query from the req, query to save performance
-
-        const document=await  model.find(queryString).skip(skip).limit(limit);
-      
         if (!document) {
            return next (new AppError('No document found',404))
           } else {
             
-            return  res.status(201).json({page,document})
+            return  res.status(201).json({page:apiFeature.page,document})
           }
       })
 }
+
+
+
 
 
 exports.getDocument=(model)=>{
@@ -88,3 +86,4 @@ exports.updateDocument=(model)=>{
           }
       })
 }
+
