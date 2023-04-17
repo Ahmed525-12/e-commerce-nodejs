@@ -43,7 +43,7 @@ exports.createDocument=(model)=>{
             cloudinary.uploader.upload(req.file.path,async(err,result)=>{
               req.body.slug=slugify(req.body.name);
               req.body.image=result.secure_url
-              const document=new model(req.body);
+              const document=new model(req.body,{new:true});
           await document.save();
             })
            
