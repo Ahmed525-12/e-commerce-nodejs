@@ -14,7 +14,5 @@ const schema=Schema({
 {
     timestamps:true
 })
-schema.post('init',(doc)=>{
-    doc.image="localhost:3000/category/"+doc.image
-})
+
 module.exports=model("category",schema)
