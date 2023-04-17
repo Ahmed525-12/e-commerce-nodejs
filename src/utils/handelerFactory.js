@@ -22,7 +22,28 @@ exports.deleteDocument=(model)=>{
 exports.createDocument=(model)=>{
     return catchAsyncError(async(req,res,next)=>{
         req.body.slug=slugify(req.body.name);
-        req.body.image=req.file.filename
+
+          
+         
+
+          if (req.file) {
+            req.body.image=req.file.filename
+            }     
+            
+          
+           if (req.files) {
+            req.body.imageCover=req.files.imageCover[0].filename
+
+            let imgs=[]
+            req.files.images.forEach((elm)=>{
+              imgs.push(elm.filename)
+            })
+            req.body.images=imgs
+           }
+
+                  
+              
+          
           const document=new model(req.body);
           await document.save();
           if (document.save()) {

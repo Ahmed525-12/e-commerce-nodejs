@@ -20,19 +20,16 @@ class GetDocuments  {
       const queryString=this.queryString
   
   delete queryString["page"]//to delete query from the req, query to save performance
-  console.log(this.queryString)
   this.mongooseQuery.find()
   return this
     }
   
     sort(){
       
-      console.log(this.queryString)
       if (this.queryString.sort) {
         let sort = this.queryString.sort.split(",").join(" ")
         this.mongooseQuery.sort(sort)
         delete this.queryString["sort"]
-      console.log(this.queryString.sort);
       }
       return this
     }

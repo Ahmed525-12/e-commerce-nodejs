@@ -73,6 +73,15 @@ const schema=Schema({
     timestamps:true
 }
 )
-
+schema.post('init',(doc)=>{
+ 
+    doc.imageCover="localhost:3000/product/"+doc.imageCover
+    let imgs=[]
+    doc.images.forEach((elm)=>{
+        
+        imgs.push("localhost:3000/product/"+elm)
+    })
+    doc.images=imgs
+})
 
 module.exports=model("product",schema)
