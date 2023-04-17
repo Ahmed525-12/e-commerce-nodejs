@@ -18,7 +18,7 @@ const port = process.env.port ||4000
 
 const golbalErrmiddlewares = require('./src/utils/globalErrMiddleWear')
 app.use(express.json())
-
+app.use(express.static('uploads'))
 app.use("/category", require("./src/modules/category/category_api"))
 app.use("/subcategory", require("./src/modules/subcategory/subcategory_api"))
 app.use("/brand", require("./src/modules/brand/brand_api"))

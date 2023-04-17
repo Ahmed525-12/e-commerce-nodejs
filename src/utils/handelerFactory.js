@@ -22,6 +22,7 @@ exports.deleteDocument=(model)=>{
 exports.createDocument=(model)=>{
     return catchAsyncError(async(req,res,next)=>{
         req.body.slug=slugify(req.body.name);
+        req.body.image=req.file.filename
           const document=new model(req.body);
           await document.save();
           if (document.save()) {
@@ -77,6 +78,7 @@ exports.updateDocument=(model)=>{
           req.body.slug=slugify(req.body.name);
       
       }
+      req.body.image=req.file.filename
             const document=await  model.findByIdAndUpdate(id,req.body,{new:true});
           if (!document) {
             next (new AppError('No documents found',404))
