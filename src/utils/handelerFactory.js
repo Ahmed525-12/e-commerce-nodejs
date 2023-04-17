@@ -2,6 +2,15 @@ const slugify = require('slugify');
 const catchAsyncError= require('express-async-handler');
 const AppError = require('./appErrors');
 const GetDocuments = require('./apiFeatuers');
+const cloudinary = require('cloudinary').v2;
+
+
+// Configuration 
+cloudinary.config({
+  cloud_name: process.env.cloudName,
+  api_key: process.env.cloudApiKey,
+  api_secret: process.env.cloudApiSecret
+});
 
 exports.deleteDocument=(model)=>{
     return catchAsyncError(async(req,res,next)=>{
@@ -23,11 +32,23 @@ exports.createDocument=(model)=>{
     return catchAsyncError(async(req,res,next)=>{
         req.body.slug=slugify(req.body.name);
 
-          
-         
+          // Upload
+
+
+
+
 
           if (req.file) {
-            req.body.image=req.file.filename
+           
+            cloudinary.uploader.upload(req.file.path,async(err,result)=>{
+              req.body.slug=slugify(req.body.name);
+              req.body.image=result.secure_url
+              const document=new model(req.body);
+          await document.save();
+            })
+           
+
+            
             }     
             
           
