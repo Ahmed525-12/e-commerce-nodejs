@@ -44,6 +44,20 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
     User && res.status(200).json(User);
 });
 
+// to changePassword specific User
+
+exports.changePassword = catchAsyncError(async (req, res, next) => {
+    const { id } = req.params;
+    let User = await UserModel.findByIdAndUpdate(
+        id,
+        req.body,
+        { new: true }
+    );
+
+    !User && next(new AppError("User not found", 400));
+    User && res.status(200).json(User);
+});
+
 // to delete specific User
 exports.deleteUser = factory.deleteDocument(UserModel)
 

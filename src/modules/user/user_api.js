@@ -1,4 +1,5 @@
-const { createUser, getUsers, getUser, updateUser, deleteUser } = require("./user_services");
+const { signup, signin } = require("./user_auth");
+const { createUser, getUsers, getUser, updateUser, deleteUser,changePassword } = require("./user_services");
 
   const router = require("express").Router();
   
@@ -9,5 +10,8 @@ const { createUser, getUsers, getUser, updateUser, deleteUser } = require("./use
     .put(updateUser)
     .delete(deleteUser);
   
+   router.patch("/changePassword/:id",changePassword) 
+   router.post("/signup",signup)
+   router.post("/signin",signin)
   module.exports = router;
   

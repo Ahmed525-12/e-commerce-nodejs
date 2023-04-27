@@ -25,7 +25,8 @@ required:true,
     },
     role:{
         type:String,
-        enum:["admin","user"]
+        enum:["admin","user"],
+        default:"user"
     },
     isActive:{
         type:Boolean,
