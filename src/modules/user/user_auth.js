@@ -41,4 +41,36 @@ exports.signin = catchAsyncError(async (req, res,next) => {
    
 });
 
-// t
+exports.protectedRoutes=  catchAsyncError(async (req, res,next) => {
+    let token=req.headers.token
+    if (!token) {
+        next(new AppError("token required ",401))
+    }
+    let decoded = await jwt.verify(token,process.env.tokenSignature)
+
+    const user = await UserModel.findById(decoded.userId)
+    if (!user) {
+        next(new AppError("user not found ",404))
+
+    } 
+  if (user.passwordChangedAt) {
+    let changePassword = parseInt(user.passwordChangedAt.getTime() / 1000);
+    if (changePassword > decoded.iat)
+      return next(new AppError("password changed", 401));
+  }
+req.user=user
+next()
+});
+
+
+exports.allowedTo = (...roles) => {
+    return catchAsyncError(async (req, res, next) => {
+      if (!roles.includes(req.user.role))
+        return next(
+          new AppError("YOU are not authorized to acces this route", 401)
+        );
+  
+      next();
+    });
+  };
+  

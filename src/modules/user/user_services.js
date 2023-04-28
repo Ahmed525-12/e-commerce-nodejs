@@ -48,7 +48,8 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
 
 exports.changePassword = catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
-    let User = await UserModel.findByIdAndUpdate(
+    req.body.passwordChangedAt=Date.now()
+        let User = await UserModel.findByIdAndUpdate(
         id,
         req.body,
         { new: true }
@@ -61,4 +62,8 @@ exports.changePassword = catchAsyncError(async (req, res, next) => {
 // to delete specific User
 exports.deleteUser = factory.deleteDocument(UserModel)
 
-
+exports.logout=catchAsyncError(async (req, res, next) => {
+    const { id } = req.params;
+    req.body.passwordChangedAt=Date.now()
+    res.json({message:"done"})
+});

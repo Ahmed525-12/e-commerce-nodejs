@@ -1,5 +1,5 @@
 const { signup, signin } = require("./user_auth");
-const { createUser, getUsers, getUser, updateUser, deleteUser,changePassword } = require("./user_services");
+const { createUser, getUsers, getUser, updateUser, deleteUser,changePassword, logout } = require("./user_services");
 
   const router = require("express").Router();
   
@@ -13,5 +13,6 @@ const { createUser, getUsers, getUser, updateUser, deleteUser,changePassword } =
    router.patch("/changePassword/:id",changePassword) 
    router.post("/signup",signup)
    router.post("/signin",signin)
+   router.get("/logout/:id",logout)
   module.exports = router;
   

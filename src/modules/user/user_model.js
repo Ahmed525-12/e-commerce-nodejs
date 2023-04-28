@@ -28,6 +28,7 @@ required:true,
         enum:["admin","user"],
         default:"user"
     },
+    passwordChangedAt:Date,
     isActive:{
         type:Boolean,
         default:true,

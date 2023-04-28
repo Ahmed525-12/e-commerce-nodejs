@@ -5,7 +5,7 @@ class GetDocuments  {
   
     }
   
-    paginate(){
+    paginate(req){
       
       let page = this.queryString.page*1 ||1
   if (page <0) page=1
@@ -13,9 +13,7 @@ class GetDocuments  {
   const skip=(page-1)*limit
   this.mongooseQuery.skip(skip).limit(limit)
   this.page=page
-  req.queryString.prevPage = page > 1 ? page - 1 : null
-  req.queryString.nextPage = page < totalPages ? page + 1 : null
-  req.queryString.totalPages = Post.countDocuments().exec() 
+ 
   return this
     }
   
