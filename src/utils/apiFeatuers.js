@@ -5,7 +5,7 @@ class GetDocuments  {
   
     }
   
-    paginate(req){
+    paginate(){
       
       let page = this.queryString.page*1 ||1
   if (page <0) page=1
