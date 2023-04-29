@@ -24,6 +24,7 @@ app.use("/subcategory", require("./src/modules/subcategory/subcategory_api"))
 app.use("/brand", require("./src/modules/brand/brand_api"))
 app.use("/product", require("./src/modules/product/proudct_api"))
 app.use("/user", require("./src/modules/user/user_api"))
+app.use("/reviews", require("./src/modules/reviews/reviews_api"))
 // end of imports
 
 

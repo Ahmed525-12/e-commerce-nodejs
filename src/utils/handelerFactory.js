@@ -37,14 +37,13 @@ exports.createDocument=(model)=>{
 
 
 
-
           if (req.file) {
-           
             cloudinary.uploader.upload(req.file.path,async(err,result)=>{
               req.body.slug=slugify(req.body.name);
               req.body.image=result.secure_url
               const document=new model(req.body,{new:true});
           await document.save();
+          console.log(result.secure_url);
             })
            
 
@@ -53,11 +52,15 @@ exports.createDocument=(model)=>{
             
           
            if (req.files) {
+            
             req.body.imageCover=req.files.imageCover[0].filename
 
             let imgs=[]
-            req.files.images.forEach((elm)=>{
-              imgs.push(elm.filename)
+            req.files.images.forEach( async(elm)=>{
+              const { secure_url } = await cloudinary.uploader.upload(elm.path, { folder: `OnlineCommerce/${req.body.name}` })
+
+              imgs.push(secure_url)
+             
             })
             req.body.images=imgs
            }
