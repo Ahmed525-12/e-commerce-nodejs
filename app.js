@@ -25,6 +25,8 @@ app.use("/brand", require("./src/modules/brand/brand_api"))
 app.use("/product", require("./src/modules/product/proudct_api"))
 app.use("/user", require("./src/modules/user/user_api"))
 app.use("/reviews", require("./src/modules/reviews/reviews_api"))
+app.use("/cart", require("./src/modules/cart/cart.api"))
+app.use("/coupon", require("./src/modules/coupon/coupon_api"))
 // end of imports
 
 
