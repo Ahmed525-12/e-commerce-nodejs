@@ -63,7 +63,6 @@ exports.createDocument=(model)=>{
             }     
             
       if (req.files) {
-            console.log(req.files);
        
        const { secure_url}=   await cloudinary.uploader.upload( req.files.imageCover[0].path, { folder: `OnlineCommerce/products/` })
        req.body.imageCover=secure_url
