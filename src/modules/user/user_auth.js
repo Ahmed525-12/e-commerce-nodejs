@@ -10,7 +10,6 @@ const jwt = require('jsonwebtoken');
 // to add new barnds
 exports.signup = catchAsyncError(async (req, res,next) => {
     const isUser= await UserModel.findOne({email:req.body.email})
-    console.log(isUser);
     if (isUser) return next(new AppError("user already exist ",401))
     
         let User = new UserModel(req.body);

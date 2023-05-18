@@ -14,7 +14,6 @@ function calcTotalPrice(cart) {
     if (cart.totalPriceAfterDiscount) {
         cart.totalPriceAfterDiscount =
             (cart.totalPrice - (cart.totalPrice * cart.discount) / 100).toFixed(2)
-        console.log(cart.discount);
     }else{
         cart.discount=0
     }
