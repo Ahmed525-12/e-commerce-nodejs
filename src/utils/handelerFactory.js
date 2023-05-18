@@ -45,44 +45,51 @@ exports.createDocument=(model)=>{
 
           // Upload
           if (req.file) {
+
             cloudinary.uploader.upload(req.file.path,async(err,result)=>{
 
               req.body.slug=slugify(req.body.name);
 
               req.body.image=result.secure_url
+             
+              const document=new model(req.body);
 
-              const document=new model(req.body,{new:true});
-
-          await document.save();
-
-          console.log(result.secure_url);
+         let docSave= await document.save();
+        
+           res.status(201).json(docSave)
 
             })
 
             }     
             
       if (req.files) {
-            
-            req.body.imageCover=req.files.imageCover[0].filename
+            console.log(req.files);
+       
+       const { secure_url}=   await cloudinary.uploader.upload( req.files.imageCover[0].path, { folder: `OnlineCommerce/products/` })
+       req.body.imageCover=secure_url
+           const imgs=[]
 
-            let imgs=[]
-
-            req.files.images.forEach( async(elm)=>{
-
-              const { secure_url } = await cloudinary.uploader.upload(elm.path, { folder: `OnlineCommerce/${req.body.name}` })
-
-              imgs.push(secure_url)
-             
-            })
+            for (const file of req.files.images) {
+                const { secure_url} = await cloudinary.uploader.upload(file.path, { folder: `OnlineCommerce/products/` })
+               
+                imgs.push(secure_url)
+                
+            }
             req.body.images=imgs
+       
+            const document=new model(req.body);
 
+            let docSave= await document.save();
+          
+              res.status(201).json(docSave)
            }
 
+         if (!req.files && !req.file) {
           const document=new model(req.body);
 
-          await document.save();
+      let docSave=    await document.save();
 
-          if (document.save()) {
+          if (docSave._id) {
 
             return res.status(201).json(document)
 
@@ -91,6 +98,7 @@ exports.createDocument=(model)=>{
             next (new AppError('No create documents',400))
 
           }
+         }
          
       })
 }

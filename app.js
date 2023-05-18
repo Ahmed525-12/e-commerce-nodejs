@@ -13,7 +13,6 @@ const morgan = require('morgan')
 const AppError = require('./src/utils/appErrors')
 
 const app = express()
-
 const port = process.env.port ||4000
 
 const golbalErrmiddlewares = require('./src/utils/globalErrMiddleWear')

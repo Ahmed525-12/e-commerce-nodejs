@@ -1,6 +1,7 @@
 const { Schema , model , Types} = require("mongoose");
 
 const schema=Schema({
+    
     name :{
         type:String,
         required:[true,"this required"]
@@ -9,7 +10,9 @@ const schema=Schema({
         type:String,
         lowercase:true
     },
-    image:String
+    image:{
+        type:String,
+    }
 },
 {
     timestamps:true
